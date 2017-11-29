@@ -1,0 +1,71 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf100
+{\fonttbl\f0\froman\fcharset0 TimesNewRomanPSMT;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww13080\viewh4940\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs28 \cf2 \
+//IDEE!  ---> Lijst maken van enemyview zodat je soorten enemies kan maken?\
+\
+//VRAAG? ---> Enemy automatisch laten bewegen, waar moet de loop gezet worden? (extra runnable maken?)\
+\
+//VRAAG? ---> zo ja bij de extra runnable, De kogel die geschoten wordt ook daarin plaatsen?\
+\
+//VRAAG? ---> VIEWCodes zijn hetzelfde buiten de waarde, anders schrijven?\
+\
+//VRAAG? ---> BEWEGEN vloeiender maken, programma hapert (kan aan de pc liggen, haha)\
+\
+//VRAAG? \'97> Moet life ook iets erven, ookal is het gewoon een x,y coordinaat?\
+\
+//VRAAG? \'97> Nut van beweeg code in gameobject en level.\
+\
+/*\
+ * To change this license header, choose License Headers in Project Properties.\
+ * To change this template file, choose Tools | Templates\
+ * and open the template in the editor.\
+ */\
+package rocketshooter;\
+\
+import javafx.application.Platform;\
+import rocketshooter.model.Level;\
+\
+/**\
+ *\
+ * Extra runnable klasse voor het traject van het geweer bij te houden.\
+ * "inspiratie/stuk code - van Diamond Caves spelletje uit de werkzitting."\
+ * \
+ * @author Jordi\
+ */\
+public class Gun implements Runnable\
+\{\
+    // data members (instance variables)\
+    private Level level;\
+    private FXMLDocumentController controller;\
+    \
+    /**\
+     * Constructor fvan de klasse Gun.\
+     * @param model\
+     * @param controller\
+     */\
+    public Gun(Level level, FXMLDocumentController controller)\
+    \{\
+        this.level = level;\
+        this.controller = controller;\
+    \}\
+\
+    @Override\
+    public void run() \{\
+      while (true) \{  \
+        try \{\
+          Thread.sleep(1000);\
+          level.tick();\
+          Platform.runLater(() -> \{\
+              controller.updateViews();\
+          \});\
+        \}\
+        catch (InterruptedException e) \{\}\
+      \}\
+    \}\
+\
+\}}
